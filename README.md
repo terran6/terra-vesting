@@ -1,10 +1,10 @@
 # Terra 2.0: How Vesting Accounts Work
 
-Individuals who previously held LUNA Classic (LUNA on the original Terra chain) will be entitled to a specified number of LUNA tokens on the new Terra 2.0 chain based on the quantity of their holdings at specified snapshots of time. To learn more about the Terra Ecosystem Revival Plan, please click [here](https://agora.terra.money/t/terra-ecosystem-revival-plan-2-passed-gov/18498).
+Individuals who previously held LUNA Classic (LUNA on the original Terra blockchain) will be entitled to a specified number of LUNA tokens on the new Terra 2.0 blockchain based on the quantity of their holdings at specified snapshots of time. To learn more about the Terra Ecosystem Revival Plan, please click [here](https://agora.terra.money/t/terra-ecosystem-revival-plan-2-passed-gov/18498).
 
 30% of LUNA tokens received will be `liquid` and may be traded and transferred immediately upon receipt. 70% of these tokens will be `vesting`, meaning that these funds will be available in one's personal wallet, but may not be traded or transfered until a specified period of time. However, these funds may be delegated to validators at any time if the user chooses to do so.
 
-Vesting tokens will be stored in a type of vesting account available in one's wallet. Vesting tokens will become `vested`, or available for trade and transfer, based on a predetermined schedule. We will go over the 3 different types of vesting accounts, each with it's own unique vesting schedule:
+Vesting tokens will be stored in a type of vesting account available in one's wallet. Vesting tokens will become `vested`, or available for trade and transfer, based on a predetermined schedule. We will go over 3 different types of vesting accounts, each with it's own unique vesting schedule.
 
 <div align="center">
 
@@ -32,7 +32,7 @@ In a continous vesting account, a number of tokens will be vested per block base
 tokens_vested_per_block = int(original_vesting * (block_time / (end_time - start_time)))
 ```
 
-In the following example, 1,000,000 uLUNA (1 LUNA) will be vested within a 24 hour time period from 1654041600 Unix time (June 1, 2022 12:00:00 AM) to 1654128000 Unix time (June 2, 2022 12:00:00 AM).
+In the following example, 1,000,000 uLUNA (1 LUNA) will be vested within the 24 hour time period from 1654041600 Unix time (June 1, 2022 12:00:00 AM) to 1654128000 Unix time (June 2, 2022 12:00:00 AM).
 
 ```json
 {
@@ -60,7 +60,7 @@ In the following example, 1,000,000 uLUNA (1 LUNA) will be vested within a 24 ho
 }
 ```
 
-Given a block time, or the average amount of time it takes for a block to be added to the blockchain, of 5 seconds, we may calculate the number of tokens vested per block by supplementing relevant variables in the `tokens_vested_per_block` equation with the specified values:
+Given a block time, or the average amount of time it takes for a block to be added to the blockchain, of 5 seconds, we may calculate the number of tokens vested per block by substituting relevant variables in the `tokens_vested_per_block` equation with the specified values:
 
 ```python
 tokens_vested_per_block = int(1000000 * (5 / (1654128000 - 1654041600)))
@@ -76,7 +76,7 @@ total_vesting_tokens = tokens_vested_per_block * (86400 / 5)
 
 Periodic vesting accounts work similarly to continuous vesting accounts except that vesting occurs over predefined vesting periods. Each period has a specified length corresponding to the number of seconds the period will last.
 
-Below, we see an example of a periodic vesting account where 5,000,000 uLUNA will be vested over the same 24 hour period. During period 1, within the first 4 hours (14,400 seconds) after the start time, 1,000,000 uLUNA will be vested. During period 2, in the 6 hours (21,600 seconds) after period 1, 2,000,000 uLUNA will be vested. Finally, during period 3, in the 14 hours (50,400 seconds) after period 2, 2,000,000 more uLUNA will be vested.
+Below, we see an example of a periodic vesting account where 5,000,000 uLUNA will be vested over the 24 hour period referenced in the continuous vesting account example. During period 1, within the first 4 hours (14,400 seconds) after the start time, 1,000,000 uLUNA will be vested. During period 2, in the 6 hours (21,600 seconds) after period 1, 2,000,000 uLUNA will be vested. Finally, during period 3, in the 14 hours (50,400 seconds) after period 2, 2,000,000 more uLUNA will be vested.
 
 ```json
 {
@@ -145,7 +145,7 @@ Following the conclusion of the vesting time period given by `end_time`, 5,000,0
 
 ## Delayed Vesting Account
 
-In a delayed vesting account, vesting tokens will be fully vested when the end time is reached. In the below example, 1,000,000 uLUNA begin vesting at the genesis block. These funds remain locked until 1654041600 Unix time (June 1, 2022 12:00:00 AM), when the full amount of 1,000,000 LUNA is then vested.
+In a delayed vesting account, vesting tokens will be fully vested when the end time is reached. In the below example, 1,000,000 uLUNA begin vesting at the genesis block. These funds remain locked until 1654041600 Unix time (June 1, 2022 12:00:00 AM), when the full amount of 1,000,000 uLUNA is then vested.
 
 ```json
 {
@@ -174,4 +174,4 @@ In a delayed vesting account, vesting tokens will be fully vested when the end t
 
 ## Delegation
 
-A user may choose to delegate their tokens to validators. This may be done with tokens that are vested or are still vesting. As such, the tokens which are vesting and are delegated will be listed under `delegated_vesting`. Tokens which are vested, but are being delegated will be listed under `delegated_free`. Both are variable values which will change based on the amount being delegated and may be updated as more and more tokens become vested. If one chooses to undelegate, the undelegated tokens will be locked for 21 days. After the 21 days is concluded, the proportion of the funds which were vested will be free to trade and transfer as desired. Funds which were undelegated, but were still vesting will become vested based on the vesting schedule provided by it's respective vesting account.
+A user may choose to delegate their tokens to validators. This may be done with tokens that are vested or are still vesting. As such, the tokens which are vesting and are delegated will be listed under `delegated_vesting`. Tokens which are vested, but are being delegated will be listed under `delegated_free`. Both are variable values which will change based on the amount being delegated and may be updated as more and more tokens become vested. If one chooses to undelegate, the undelegated tokens will be locked for 21 days. After the 21 days is concluded, the proportion of the funds which are vested will be free to trade and transfer as desired. Funds which are undelegated, but are still vesting will become vested based on the vesting schedule provided by it's respective vesting account.
